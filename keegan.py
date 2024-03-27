@@ -15,6 +15,15 @@ for skaitlis in range(1, 11, 2):      #range - funkcija, kas skaita skaitļus
 
 
 
+def zvaigznites(skaitlis):
+    for rindasNr in range(1, skaitlis+1)
+        print("*"*rindasNr)
+        
+
+
+
+
+
 skaitlis1 = 7
 skaitlis2 = 3
 
