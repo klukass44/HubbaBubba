@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% block nosaukums%} saraksts {% endblock %}
+
+{% block saturs %}
+
+<ol>
+
+   <li> {{vardi[0]}}, <img src="{{bildes[0]}}" alt=""></li>
+   <li> {{vardi[1]}}, </li>
+   <li> {{vardi[2]}}, </li>
+
+</ol>
+
+
+<h3>cits veids</h3>
+ 
+<ol>
+    {% for i in range(len(vardi)) %}
+    <li></li>
+</ol>
+
+
+
+
+
+
+
+
+
+{%endblock%}

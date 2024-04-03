@@ -46,6 +46,11 @@ for i in range(len(skaitlu_pari)):
 for elements in skaitlu_pari[1:3]:
     print("pirmais skaitlis", elememnts[0],"otrais skaitlis:", elements[1], "rezultats:")
 
+def end(num1, num2):
+    if num1<6 and num2<6:
+        end = num1*num2
+    else:
+        end = num1+num2
 
 
 
