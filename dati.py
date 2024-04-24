@@ -38,4 +38,4 @@ def dabut_rindinas():
 # pierakstit_klat("Katls, https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtv-3G97RDAt-sgNqxhaEB4f2SDwVxJaOq7JOY0D_7zA&s")
 # pierakstit_klat("Kartupelis, https://www.darzaabc.lv/public/assets/images/products/Agrimatco/kartupe%C4%BCi/kartupeli-monalisa-dzeltenie-seklas-kartupelu-stadamais-materials.jpg")
 
-print(dabut_rindinas())
+print(dabut_rindinas()) 

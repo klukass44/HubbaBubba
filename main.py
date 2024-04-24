@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-from dati import dabut_rindinas
+from dati import dabut_rindinas, pierakstit_klat
 
 app = Flask(__name__)
 
