@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snake Game</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #000;
+  }
+  canvas {
+    background: #333;
+  }
+</style>
+</head>
+<body>
+<canvas id="gameCanvas" width="400" height="400"></canvas>
+<script>
+  (function() {
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const scale = 20;
+    const rows = canvas.height / scale;
+    const columns = canvas.width / scale;
+
+    let snake;
+    let food;
+
+    function Snake() {
+      this.body = [{x: 10 * scale, y: 10 * scale}];
+      this.xSpeed = scale;
+      this.ySpeed = 0;
+      this.length = 1;
+
+      this.draw = function() {
+        ctx.fillStyle = "#FFFFFF";
+        for (let i = 0; i < this.body.length; i++) {
+          ctx.fillRect(this.body[i].x, this.body[i].y, scale, scale);
+        }
+      };
+
+      this.update = function() {
+        const head = {x: this.body[0].x + this.xSpeed, y: this.body[0].y + this.ySpeed};
+
+        // Wrap around the edges
+        if (head.x >= canvas.width) head.x = 0;
+        if (head.y >= canvas.height) head.y = 0;
+        if (head.x < 0) head.x = canvas.width - scale;
+        if (head.y < 0) head.y = canvas.height - scale;
+
+        this.body.unshift(head);
+        if (this.body.length > this.length) {
+          this.body.pop();
+        }
+      };
+
+      this.changeDirection = function(direction) {
+        switch (direction) {
+          case 'Up':
+            if (this.ySpeed === 0) {
+              this.xSpeed = 0;
+              this.ySpeed = -scale;
+            }
+            break;
+          case 'Down':
+            if (this.ySpeed === 0) {
+              this.xSpeed = 0;
+              this.ySpeed = scale;
+            }
+            break;
+          case 'Left':
+            if (this.xSpeed === 0) {
+              this.xSpeed = -scale;
+              this.ySpeed = 0;
+            }
+            break;
+          case 'Right':
+            if (this.xSpeed === 0) {
+              this.xSpeed = scale;
+              this.ySpeed = 0;
+            }
+            break;
+        }
+      };
+
+      this.eat = function(food) {
+        if (this.body[0].x === food.x && this.body[0].y === food.y) {
+          this.length++;
+          return true;
+        }
+        return false;
+      };
+
+      this.checkCollision = function() {
+        for (let i = 1; i < this.body.length; i++) {
+          if (this.body[0].x === this.body[i].x && this.body[0].y === this.body[i].y) {
+            return true;
+          }
+        }
+        return false;
+      };
+    }
+
+    function Food() {
+      this.x;
+      this.y;
+
+      this.pickLocation = function() {
+        this.x = Math.floor(Math.random() * columns) * scale;
+        this.y = Math.floor(Math.random() * rows) * scale;
+      };
+
+      this.draw = function() {
+        ctx.fillStyle = "#4CAF50";
+        ctx.fillRect(this.x, this.y, scale, scale);
+      };
+    }
+
+    function setup() {
+      snake = new Snake();
+      food = new Food();
+      food.pickLocation();
+
+      window.setInterval(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        snake.update();
+        snake.draw();
+
+        if (snake.eat(food)) {
+          food.pickLocation();
+        }
+
+        food.draw();
+
+        if (snake.checkCollision()) {
+          alert('Game Over');
+          snake = new Snake();
+          food.pickLocation();
+        }
+      }, 100);
+    }
+
+    window.addEventListener('keydown', evt => {
+      const direction = evt.key.replace('Arrow', '');
+      snake.changeDirection(direction);
+    });
+
+    setup();
+  })();
+</script>
+</body>
+</html>
